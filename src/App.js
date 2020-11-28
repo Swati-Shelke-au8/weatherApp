@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Weather from "./components/weather";
 import Form from "./components/form";
 
-//api call api.openweathermap.com 8692899408
+//api call api.openweathermap.com
 const API_KEY = "4af355cc61ae800dccd9e8ac59b2eadf";
 
 class App extends React.Component {
@@ -20,6 +20,9 @@ class App extends React.Component {
       temp_max: null,
       temp_min: null,
       description: "",
+      sunrise: "",
+      sunset: "",
+      wind: "",
       error: false,
     };
 
@@ -88,6 +91,9 @@ class App extends React.Component {
         temp_max: this.calCelsius(response.main.temp_max),
         temp_min: this.calCelsius(response.main.temp_min),
         description: response.weather[0].description,
+        sunset: response.sys.sunset,
+        sunrise: response.sys.sunrise,
+        wind: response.wind.speed,
         error: false,
       });
 
@@ -107,12 +113,15 @@ class App extends React.Component {
       <div className="App">
         <Form loadweather={this.getWeather} error={this.state.error} />
         <Weather
-          cityname={this.state.city}
+          city={this.state.city}
           weatherIcon={this.state.icon}
           temp_celsius={this.state.celsius}
           temp_max={this.state.temp_max}
           temp_min={this.state.temp_min}
           description={this.state.description}
+          sunrise={this.state.sunrise}
+          sunset={this.state.sunset}
+          wind={this.state.wind}
         />
       </div>
     );
